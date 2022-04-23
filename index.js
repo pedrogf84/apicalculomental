@@ -23,15 +23,9 @@ app.use(express.json());
 app.use("/api/activities", ActivityRoutes);
 app.use("/api/users", UserRoutes);
 
-app.post("/", async function (req, res, next) {
-  try {
-    console.log(req.body);
-    res.send(req.body);
-  } catch (error) {
-    throw next(error);
-  }
+app.get("/", (req, res) => {
+  res.send("Bienvenido al server Cálculo Mental");
 });
-
 app.use(
   express.urlencoded({
     extended: true,
