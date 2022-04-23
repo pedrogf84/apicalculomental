@@ -53,7 +53,7 @@ const login = async (req, res, next) => {
 const logout = (req, res, next) => {
   try {
     const token = null;
-    return res.status(201).json(token);
+    return res.status(201).json("logout successful");
   } catch (error) {
     return next(
       setError(error.statusCode, "An error occured while logging out ")
