@@ -5,7 +5,7 @@ const UserRoutes = require("./src/api/users/user.routes");
 const { connect } = require("./src/utils/database/db");
 const { setError } = require("./src/utils/error/error");
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 /* EXPRESS */
 const app = express();
