@@ -9,9 +9,9 @@ const {
   getAllByType,
 } = require("./activity.controller");
 
-ActivityRoutes.get("/", [isAuth], getAll);
-ActivityRoutes.get("/:_id", [isAuth], getOne);
-ActivityRoutes.get("/type/:type", [isAuth], getAllByType);
+ActivityRoutes.get("/", getAll);
+ActivityRoutes.get("/:_id", getOne);
+ActivityRoutes.get("/type/:type", getAllByType);
 ActivityRoutes.post("/", [isAuth], postOne);
 ActivityRoutes.delete("/:_id", [isAuth], deleteOne);
 
