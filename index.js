@@ -26,6 +26,10 @@ app.use("/api/users", UserRoutes);
 app.get("/", (req, res) => {
   res.send("Bienvenido al server Cálculo Mental");
 });
+app.get("/api", (req, res) => {
+  res.send("Bienvenido al server Cálculo Mental");
+});
+
 app.use(
   express.urlencoded({
     extended: true,
