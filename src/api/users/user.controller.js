@@ -63,9 +63,8 @@ const addActivity = async (req, res, next) => {
   try {
     const { _id } = req.params;
     const user = new User(req.body);
-    res.status(200).json(user);
-    //const updateUser = await User.findByIdAndUpdate(_id, user);
-    //res.status(200).json(updateUser);
+    const updateUser = await User.findByIdAndUpdate(_id, user);
+    res.status(200).json(user, updateUser);
   } catch (error) {
     return next(setError(error.statusCode, "Item not modified"));
   }
