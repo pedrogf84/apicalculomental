@@ -59,8 +59,8 @@ const logout = (req, res, next) => {
 
 const addActivity = async (req, res, next) => {
   try {
-    const updateUser = await User.findByIdAndUpdate(req.params._id, req.body);
-    res.status(200).json(updateUser);
+    const user = await User.findByIdAndUpdate(req.params._id, req.body);
+    res.status(200).json(user);
   } catch (error) {
     return next(setError(error.statusCode, "Item not modified"));
   }
