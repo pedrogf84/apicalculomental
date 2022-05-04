@@ -7,7 +7,6 @@ const getOne = async (req, res, next) => {
   try {
     const { _id } = req.params;
     const user = await User.findById(_id).populate("completedActivities");
-
     res.status(200).json(user);
   } catch (error) {
     return next(setError(error.statusCode, "An error occured getting user"));
@@ -21,7 +20,6 @@ const register = async (req, res, next) => {
 
     const userExist = await User.findOne({ email: user.email });
     if (userExist) {
-      // TODO: Errores
       return next(setError(error.statusCode, "User already exists"));
     }
     const userDB = await user.save();
@@ -61,11 +59,8 @@ const logout = (req, res, next) => {
 
 const addActivity = async (req, res, next) => {
   try {
-    const { _id } = req.params;
-    const user = new User(req.body);
-    res.status(200).json(user);
-    //const updateUser = await User.findByIdAndUpdate(_id, user);
-    //res.status(200).json(user, updateUser);
+    const updateUser = await User.findOneAndUpdate(req.params._id, req.body);
+    res.status(200).json(updateUser);
   } catch (error) {
     return next(setError(error.statusCode, "Item not modified"));
   }
