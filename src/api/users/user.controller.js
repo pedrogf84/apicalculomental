@@ -5,9 +5,7 @@ const { setError } = require("../../utils/error/error");
 
 const getOne = async (req, res, next) => {
   try {
-    console.log(req.params);
     const { _id } = req.params;
-
     const user = await User.findById(_id).populate("completedActivities");
 
     res.status(200).json(user);
@@ -65,8 +63,9 @@ const addActivity = async (req, res, next) => {
   try {
     const { _id } = req.params;
     const user = new User(req.body);
-    const updateUser = await User.findByIdAndUpdate(_id, user);
-    res.status(200).json(updateUser);
+    res.status(200).json(user);
+    //const updateUser = await User.findByIdAndUpdate(_id, user);
+    //res.status(200).json(updateUser);
   } catch (error) {
     return next(setError(error.statusCode, "Item not modified"));
   }
