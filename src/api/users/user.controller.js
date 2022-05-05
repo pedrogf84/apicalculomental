@@ -27,7 +27,7 @@ const getAll = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   try {
-    console.log("dentro de register", req.body);
+    console.log("INFO: dentro de register", req.body);
     const user = new User(req.body);
 
     const userExist = await User.findOne({ email: user.email });
