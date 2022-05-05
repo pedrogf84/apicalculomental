@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema(
     name: { type: String, trim: true, required: true },
     role: { type: String, trim: true, required: true },
     password: { type: String, trim: true, required: true },
+    guardianName: { type: String, trim: true },
+    guardianEmail: { type: String, trim: true },
+    group: { type: String, trim: true, required: true },
     completedActivities: [
       {
         type: mongoose.Schema.Types.ObjectId,

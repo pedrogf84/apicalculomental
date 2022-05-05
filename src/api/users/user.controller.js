@@ -13,6 +13,18 @@ const getOne = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+  return next(
+    setError(error.statusCode, "An error occured getting all users")
+  );
+  }
+};
+
 const register = async (req, res, next) => {
   try {
     console.log("dentro de register", req.body);
