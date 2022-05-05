@@ -80,6 +80,7 @@ const addActivity = async (req, res, next) => {
 
 module.exports = {
   getOne,
+  getAll,
   register,
   login,
   logout,
