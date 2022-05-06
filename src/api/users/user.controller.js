@@ -24,7 +24,7 @@ const getAll = async (req, res, next) => {
 
 const register = async (req, res, next) => {
   try {
-    console.log("INFO: dentro de register", req.body);
+    console.log("INFO: (user - registerController) req.body: ", req.body);
     const user = new User(req.body);
 
     const userExist = await User.findOne({ email: user.email });
@@ -42,7 +42,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    console.log(req.body);
+    console.log('INFO-API: (user-loginController) req.body: ', req.body);
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return next(setError(404, "error"));
@@ -60,6 +60,7 @@ const login = async (req, res, next) => {
 
 const logout = (req, res, next) => {
   try {
+    console.log('INFO-API: (user-logoutController)');
     const token = null;
     return res.status(201).json("logout successful");
   } catch (error) {
@@ -69,6 +70,7 @@ const logout = (req, res, next) => {
 
 const addActivity = async (req, res, next) => {
   try {
+    console.log('INFO-API: (user-addActivity)');
     const user = await User.findByIdAndUpdate(req.params._id, req.body);
     res.status(200).json(user);
   } catch (error) {

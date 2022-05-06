@@ -4,6 +4,7 @@ const Activity = require("./activity.model");
 const getAll = async (req, res, next) => {
   
   try {
+    console.log('INFO-API: (activity.controller - getAll)');
     const activities = await Activity.find();
     res.status(200).json(activities);
   } catch (error) {
@@ -15,6 +16,7 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   try {
+    console.log('INFO-API: (activity.controller - getOne)');
     const { _id } = req.params;
     const activity = await Activity.findById(_id);
     res.status(200).json(activity);
@@ -29,6 +31,7 @@ const getOne = async (req, res, next) => {
 const getAllByType = async (req, res, next) => {
   
   try {
+    console.log('INFO-API: (activity.controller - getAllByType)');
     const { type } = req.params;
     const activities = await Activity.find({ type: type });
 
@@ -42,7 +45,7 @@ const getAllByType = async (req, res, next) => {
 
 const postOne = async (req, res, next) => {
   try {
-    console.log('dentro de post activity',req.body)
+    console.log('INFO-API: (activity.controller - postOne) - req.body: ', req.body);
     const activity = new Activity();
     activity.id = req.body.id;
     activity.level = req.body.level;
@@ -59,6 +62,7 @@ const postOne = async (req, res, next) => {
 
 const deleteOne = async (req, res, next) => {
   try {
+    console.log('INFO-API: (activity.controller - deleteOne)');
     const { _id } = req.params;
 
     const Activity = await Activity.findByIdAndDelete(_id);
