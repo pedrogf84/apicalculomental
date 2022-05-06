@@ -14,14 +14,11 @@ const getOne = async (req, res, next) => {
 };
 
 const getAll = async (req, res, next) => {
-  
   try {
     const users = await User.find();
     res.status(200).json(users);
   } catch (error) {
-  return next(
-    setError(error.statusCode, "An error occured getting all users")
-  );
+    return next(setError(error.statusCode, "An error occured getting all users"));
   }
 };
 
@@ -31,8 +28,10 @@ const register = async (req, res, next) => {
     const user = new User(req.body);
 
     const userExist = await User.findOne({ email: user.email });
-    if (userExist) {
-      return next(setError(error.statusCode, "User already exists"));
+    if (!userExist) {
+      console.log('user doesnt exist');
+      res.statusMessage = "user doesnot match";
+      res.status(400).end();
     }
     const userDB = await user.save();
     return res.status(201).json(userDB.name);
@@ -43,18 +42,19 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
+    console.log(req.body);
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return next(setError(404, "This user is not registered"));
+      return next(setError(404, "error"));
     }
 
     if (bcrypt.compareSync(req.body.password, user.password)) {
       const token = JwtUtils.generateToken(user._id, user.email);
 
-      return res.status(200).json({token, user});
+      return res.status(200).json({ token, user });
     }
   } catch (error) {
-    return next(setError(error.statusCode, "Logging unsuccessful"));
+    return next(setError(error.status, "Logging unsuccessful"));
   }
 };
 
@@ -63,9 +63,7 @@ const logout = (req, res, next) => {
     const token = null;
     return res.status(201).json("logout successful");
   } catch (error) {
-    return next(
-      setError(error.statusCode, "An error occured while logging out ")
-    );
+    return next(setError(error.statusCode, "An error occured while logging out "));
   }
 };
 
