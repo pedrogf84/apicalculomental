@@ -64,7 +64,6 @@ const deleteOne = async (req, res, next) => {
   try {
     console.log('INFO-API: (activity.controller - deleteOne)');
     const { _id } = req.params;
-
     const Activity = await Activity.findByIdAndDelete(_id);
     return res.status(200).json(Activity);
   } catch (error) {
