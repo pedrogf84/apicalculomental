@@ -87,7 +87,7 @@ const activateUser = async (req, res, next) => {
     user.active = true;
     const confirmedUser = await User.findOneAndUpdate({ email: req.params.email }, user);
     //const userToSend = await User.findOne({ email: req.params.email });
-    res.status(200).json({"message": "El usuario ha sido verificado, gracias" });
+    return res.redirect('/login');
   } catch(error) {
     return next(setError(error.statusCode, "User not verified"));
   }
