@@ -70,9 +70,10 @@ const logout = (req, res, next) => {
 
 const addActivity = async (req, res, next) => {
   try {
-    console.log('INFO-API: (user-addActivity)');
+    console.log('INFO-API: (user-addActivity):', req.body);
     const user = await User.findByIdAndUpdate(req.params._id, req.body);
-    const userToSend = await User.findById(_id).populate("completedActivities");
+    console.log('user',  user);
+    const userToSend = await User.findById(req.params._id);
     res.status(200).json(userToSend);
   } catch (error) {
     return next(setError(error.statusCode, "Item not modified"));
