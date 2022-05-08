@@ -72,7 +72,8 @@ const addActivity = async (req, res, next) => {
   try {
     console.log('INFO-API: (user-addActivity)');
     const user = await User.findByIdAndUpdate(req.params._id, req.body);
-    res.status(200).json(user);
+    const userToSend = await User.findById(_id).populate("completedActivities");
+    res.status(200).json(userToSend);
   } catch (error) {
     return next(setError(error.statusCode, "Item not modified"));
   }
