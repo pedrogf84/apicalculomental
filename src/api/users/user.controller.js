@@ -28,13 +28,12 @@ const register = async (req, res, next) => {
     const user = new User(req.body);
 
     const userExist = await User.findOne({ email: user.email });
-    if (!userExist) {
-      console.log('user doesnt exist');
-      res.statusMessage = "user doesnot match";
-      res.status(400).end();
+    if (userExist) {
+      console.log('ERROR: (user.controller(register)) - user already exist');
+      return res.status(400).json({"message": "user already exists"});
     }
     const userDB = await user.save();
-    return res.status(201).json(userDB.name);
+    return res.status(201).json(userDB);
   } catch (error) {
     return next(setError(error.statusCode, "Register unsuccessful"));
   }
