@@ -8,6 +8,6 @@ UserRoutes.post("/register", register);
 UserRoutes.post("/login", login);
 UserRoutes.post("/logout", [isAuth], logout);
 UserRoutes.patch("/add-activity/:_id", [isAuth], addActivity);
-UserRoutes.patch("/activate/:_id", [isAuth], activateUser);
+UserRoutes.patch("/activate/:_id", activateUser);
 
 module.exports = UserRoutes;
