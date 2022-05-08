@@ -41,7 +41,7 @@ const register = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    console.log('INFO-API: (user-loginController) req.body: ', req.body);
+    console.log('INFO-API: (user-loginController) req.body: ', req.params);
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return next(setError(404, "error"));
@@ -80,11 +80,17 @@ const addActivity = async (req, res, next) => {
 };
 
 const activateUser = async (req, res, next) => {
-  console.log('INFO-API: (user-activateUser):', req.params._id);
-  let user = await User.findById(req.params._id);
-  user.active = true;
-  const confirmedUser = await User.findByIdAndUpdate(req.params._id, user);
-  res.status(200).json(confirmedUser);
+  try {
+    console.log('INFO-API: (user-activateUser):', req.params.email);
+    let user = await User.findOne({ email: req.params.email });
+    console.log(user)
+    user.active = true;
+    const confirmedUser = await User.findOneAndUpdate({ email: req.params.email }, user);
+    const userToSend = await User.findOne({ email: req.params.email });
+    res.status(200).json(userToSend);
+  } catch(error) {
+    return next(setError(error.statusCode, "User not verified"));
+  }
 }
 
 module.exports = {
