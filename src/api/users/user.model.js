@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
     guardianName: { type: String, trim: true },
     guardianEmail: { type: String, trim: true },
     group: { type: String, trim: true, required: true },
+    active: { type: Boolean, required: false },
     completedActivities: [
       {
         type: mongoose.Schema.Types.ObjectId,
