@@ -80,6 +80,14 @@ const addActivity = async (req, res, next) => {
   }
 };
 
+const activateUser = async (req, res, next) => {
+  console.log('INFO-API: (user-activateUser):', req.params._id);
+  let user = await User.findById(req.params._id);
+  user.active = true;
+  const confirmedUser = await User.findByIdAndUpdate(req.params._id, user);
+  res.status(200).json(confirmedUser);
+}
+
 module.exports = {
   getOne,
   getAll,
@@ -87,4 +95,5 @@ module.exports = {
   login,
   logout,
   addActivity,
+  activateUser
 };
